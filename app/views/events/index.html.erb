@@ -1,11 +1,28 @@
-<ul>
-  <% @events.each do |event| %>
-      <li>
-        <%= event.title %>
-        <%= link_to 'Show', event_path(event) %>
-        <%= link_to 'Edit', edit_event_path(event) %>
-        <%= button_to 'Delete', event_path(event), :method => :delete %>
-      </li>
-  <% end %>
-</ul>
+<h2>災情訊息網</h2>
+<br>
+<table class="table table-striped">
+    <thead>
+      <th>標題</th>
+      <th>張貼時間</th>
+      <th>修正</th>
+      <th>訊息</th>
+      <th>刪除</th>
+    </thead>
+    <% @events.each do |event| %>
+    <tbody>
+      <tr>
+        <td><%= link_to event.title, event_path(event) %></td>
+        <td><% Time.zone = "Taipei" %><%= event.updated_at%></td>
+        <td><%= link_to '我想修正', edit_event_path(event) %></td>
+        <td><%= link_to '訊息總覽', event_messages_path(event) %></td>
+        <td><%= button_to '我想刪除', event_path(event), :method => :delete %></td>
+      </tr>
+    </tbody>
+    <% end %>
+</table>
+
+<%= paginate @events %>
+<br>
+<br>
 <%= link_to 'New Event', :controller => 'events', :action => 'new' %>
+

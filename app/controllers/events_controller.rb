@@ -2,7 +2,7 @@ class EventsController < ApplicationController
   #before_action :authenticate_user!
   before_action :set_event, :only => [ :show, :edit, :update, :destroy]
   def index
-    @events = Event.all
+    @events = Event.page(params[:page]).per(5)
   end
 
   def new
@@ -37,7 +37,7 @@ class EventsController < ApplicationController
   private
 
   def event_params
-    params.require(:event).permit(:title, :content)
+    params.require(:event).permit(:title, :content, :category_id)
   end
 
   def set_event

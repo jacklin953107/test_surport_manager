@@ -1,0 +1,6 @@
+<h3>請修正訊息</h3>
+<%= form_for @message, :url => event_message_path(@event, @message), :html => { :method => :patch } do |f| %>
+    <div><%= f.text_area :name %></div>
+    <div><%= f.submit %></div>
+<% end %>
+<p><%= link_to '不修正回訊息總覽', event_messages_path(@event) %></p>

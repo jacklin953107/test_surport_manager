@@ -1,12 +1,12 @@
 class EventMessagesController < ApplicationController
   before_action :find_event
+  before_action :find_message, :only => [:show, :edit, :update, :destroy]
 
   def index
     @messages = @event.messages
   end
 
   def show
-    @messages = @event.messages.find( params[:id] )
   end
 
   def new
@@ -14,7 +14,7 @@ class EventMessagesController < ApplicationController
   end
 
   def create
-    @message = @event.messages.build( message_params )
+    @message = @event.messages.build( params_message )
     if @message.save
       redirect_to event_messages_url( @event )
     else
@@ -23,13 +23,11 @@ class EventMessagesController < ApplicationController
   end
 
   def edit
-    @message = @event.messages.find( params[:id] )
   end
 
   def update
-    @message = @event.messages.find( params[:id] )
 
-    if @message.update( message_params )
+    if @message.update( params_message )
       redirect_to event_messages_url( @event )
     else
       render :action => :edit
@@ -38,7 +36,6 @@ class EventMessagesController < ApplicationController
   end
 
   def destroy
-    @message = @event.messages.find( params[:id] )
     @message.destroy
 
     redirect_to event_messages_url( @event )
@@ -50,7 +47,11 @@ class EventMessagesController < ApplicationController
     @event = Event.find( params[:event_id] )
   end
 
-  def attendee_params
+  def params_message
     params.require(:message).permit(:name)
+  end
+
+  def find_message
+    @message = @event.messages.find(params[:id])
   end
 end

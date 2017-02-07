@@ -1,7 +1,15 @@
+
+<div class="form-group">
 <%= f.label :title, "Title" %>
 <%= f.text_field :title %>
-
+</div>
+<div class="form-group">
 <%= f.label :content, "Content" %>
-<%= f.text_area :content %>
-
+  <%= f.text_area :content %>
+</div>
+<div class="form-group">
+  請選擇分類 ： <%= f.collection_select(:category_id, Category.all, :id, :name) %>
+</div>
+<div class="form-group">
 <%= f.submit  %>
+</div>
