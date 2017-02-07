@@ -2,4 +2,6 @@ Event:<%= @event.title %>
 <br>
 Message:<%= @message.name %>
 <br>
-<%= link_to 'edit' , edit_event_message_path(@event , @message) %>
+<%= link_to '修正訊息' , edit_event_message_path(@event , @message) %>
+<p><%= link_to '回訊息總覽', event_messages_path(@event) %></p>
+<p><%= link_to '回災情事件總覽', :controller => 'events', :action => 'index' %></p>

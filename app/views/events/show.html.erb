@@ -1,6 +1,17 @@
-<%= @event.title %>
-<%= simple_format(@event.content) %>
+<h3>詳細事件內容</h3>
+<br>
+<div>
+<h4>事件：</h4><%= @event.title %>
+</div>
+<br>
+<div>
+<h4>內容：</h4><%= simple_format(@event.content) %>
+</div>
+<br>
+<div>
+<h4>事件類別:</h4> <%= @event.category.try(:name) %>
+</div>
+<br>
 
-<p>Category: <%= @event.category.try(:name) %></p>
-
-<p><%= link_to 'Back to index', :controller => 'events', :action => 'index' %></p>
+<p><%= link_to '修正事件內容', edit_event_path(@event) %></p>
+<p><%= link_to '回災情總覽', :controller => 'events', :action => 'index' %></p>

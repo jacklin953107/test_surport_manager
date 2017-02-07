@@ -1,4 +1,4 @@
-<h2><%= @event.title %> Messages</h2>
+<h2>事件標題：<%= @event.title %></h2>
 <br>
 <table class="table table-striped">
   <thead>
@@ -20,5 +20,5 @@
 </table>
 
 
-<%= link_to 'new message', new_event_message_path(@event) %>
-<p><%= link_to 'Back to index', :controller => 'events', :action => 'index' %></p>
+<%= link_to '新增訊息', new_event_message_path(@event) %>
+<p><%= link_to '回災情事件總覽', :controller => 'events', :action => 'index' %></p>

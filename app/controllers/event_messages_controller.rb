@@ -1,4 +1,5 @@
 class EventMessagesController < ApplicationController
+  before_action :authenticate_user!
   before_action :find_event
   before_action :find_message, :only => [:show, :edit, :update, :destroy]
 
