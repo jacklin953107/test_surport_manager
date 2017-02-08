@@ -1,10 +1,12 @@
 class EventMessagesController < ApplicationController
   before_action :authenticate_user!
   before_action :find_event
-  before_action :find_message, :only => [:show, :edit, :update, :destroy]
+  before_action :find_message, :only => [:show, :update]
+  before_action :find_message_destroy, :only => [:destroy, :edit]
 
   def index
     @messages = @event.messages
+    @message = Message.new
   end
 
   def show
@@ -16,11 +18,9 @@ class EventMessagesController < ApplicationController
 
   def create
     @message = @event.messages.build( params_message )
-    if @message.save
-      redirect_to event_messages_url( @event )
-    else
-      render :action => :new
-    end
+    @message.user_id = current_user.id
+    @message.save
+    redirect_to event_messages_url( @event )
   end
 
   def edit
@@ -38,8 +38,7 @@ class EventMessagesController < ApplicationController
 
   def destroy
     @message.destroy
-
-    redirect_to event_messages_url( @event )
+    redirect_to event_messages_path
   end
 
   protected
@@ -54,5 +53,16 @@ class EventMessagesController < ApplicationController
 
   def find_message
     @message = @event.messages.find(params[:id])
+  end
+
+  def find_message_destroy
+    @message = @event.messages.find(params[:id])
+    #@message = current_user.messages.find_by_id(params[:id])
+    #byebug
+    if !(current_user.messages.find_by_id(params[:id]))
+      #byebug
+      flash[:alert] = "無權限操作!"
+      redirect_to event_messages_path
+    end
   end
 end

@@ -20,9 +20,6 @@
     </tbody>
     <% end %>
 </table>
-
 <%= paginate @events %>
-<br>
-<br>
-<%= button_to '新增災情', :controller => 'events', :action => 'new' %>
+<%= link_to '新增災情', new_event_path %>
 

@@ -1,4 +1,10 @@
-
+<% if @event.errors.any? %>
+    <ul>
+      <% @event.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+      <% end %>
+    </ul>
+<% end %>
 <div class="form-group">
 <%= f.label :title, "事件標題" %>
 <%= f.text_field :title %>
