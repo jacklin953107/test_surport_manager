@@ -13,13 +13,35 @@
       <tr>
         <td><%= link_to event.title, event_path(event) %></td>
         <td><% Time.zone = "Taipei" %><%= event.updated_at%></td>
-        <td><%= link_to '我想修正', edit_event_path(event) %></td>
+        <td><%= link_to '我想修正', edit_event_path(event, :type => 'edit') %></td>
         <td><%= link_to '訊息總覽', event_messages_path(event) %></td>
         <td><%= button_to '我想刪除', event_path(event), :method => :delete %></td>
       </tr>
     </tbody>
     <% end %>
 </table>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<% unless params[:type] == 'edit'%>
+<%= link_to '新增事件', new_event_path(:type => 'new'), :class => 'btn btn-success' %>
+<% end %>
+
 <%= paginate @events %>
-<%= link_to '新增災情', new_event_path %>
+
+<% if params[:type] == 'new' %>
+    <%= form_for @event, :url => events_path(@event) do |f| %>
+        <%= render :partial => 'form' , :locals => {:f => f} %>
+    <% end %>
+<% end %>
+<% if params[:type] == 'edit' %>
+    <%= form_for @event, :url => { :controller => 'events', :action => 'update', :id => @event } do |f| %>
+        <%= render :partial => 'form' , :locals => {:f => f} %>
+    <% end %>
+<% end %>
+
+
 
