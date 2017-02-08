@@ -3,14 +3,6 @@ class EventsController < ApplicationController
   before_action :set_event, :only => [ :edit, :update, :destroy]
   def index
     @events = Event.all.page(params[:page]).per(5)
-    #if params[:event_id]
-     # unless @event = current_user.events.find_by_id(params[:event_id])
-      #  flash[:alert] = "It's not your Event!"
-       # redirect_to events_path(page: params[:page])
-      #end
-    #else
-     # @event = Event.new
-    #end
   end
 
   def new
